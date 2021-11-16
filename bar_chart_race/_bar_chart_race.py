@@ -697,7 +697,7 @@ def bar_chart_race(df, filename=None, orientation='h', sort='desc', n_bars=None,
                    bar_label_font=None, tick_label_font=None, tick_template='{x:,.0f}',
                    shared_fontdict=None, scale='linear', fig=None, writer=None, bar_kwargs=None, 
                    fig_kwargs=None, filter_column_colors=False,
-                   img_label_folder=None,tick_label_mode='image',tick_image_mode='trailing'):
+                   img_label_folder=None,tick_label_mode='image',tick_image_mode='trailing',img_name_dict=None):
     '''
     Create an animated bar chart race using matplotlib. Data must be in 
     'wide' format where each row represents a single time period and each 
@@ -1020,6 +1020,10 @@ def bar_chart_race(df, filename=None, orientation='h', sort='desc', n_bars=None,
 
         Possible keys are:
             `trailing`, `fixed`
+            
+    img_name_dict : dict, default None
+        A dictionary which has key as column name of the dataset and value as the full name of the image including its extension
+        
     Returns
     -------
     When `filename` is left as `None`, an HTML5 video is returned as a string.
@@ -1077,5 +1081,5 @@ def bar_chart_race(df, filename=None, orientation='h', sort='desc', n_bars=None,
                         colors, title, bar_size, bar_textposition, bar_texttemplate, 
                         bar_label_font, tick_label_font, tick_template, shared_fontdict, scale, 
                         fig, writer, bar_kwargs, fig_kwargs, filter_column_colors, 
-                        img_label_folder,tick_label_mode,tick_image_mode)
+                        img_label_folder,tick_label_mode,tick_image_mode,img_name_dict)
     return bcr.make_animation()
