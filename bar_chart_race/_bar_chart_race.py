@@ -56,7 +56,7 @@ class _BarChartRace(CommonChart):
                  colors, title, bar_size, bar_textposition, bar_texttemplate, bar_label_font, 
                  tick_label_font, tick_template, shared_fontdict, scale, fig, writer, 
                  bar_kwargs, fig_kwargs, filter_column_colors, 
-                 img_label_folder,tick_label_mode,tick_image_mode,img_name_dict):
+                 img_label_folder,tick_label_mode,tick_image_mode,img_name_dict, x_label, y_label):
         self.filename = filename
         self.extension = self.get_extension()
         self.orientation = orientation
@@ -102,6 +102,8 @@ class _BarChartRace(CommonChart):
         self.tick_image_mode = tick_image_mode
         self.img_name_dict = img_name_dict # dictionary containing key as column name and value as corresponding image name with extensions (can be .jpg/.jpeg/.etc)
         self.img_label_artist = []     #stores image artists
+        self.x_label = x_label
+        self.y_label = y_label
 
 
     def validate_params(self):
@@ -205,7 +207,7 @@ class _BarChartRace(CommonChart):
         #load image as an OffsetImage object
         img_name      = get_image_name(name, self.img_name_dict)
         img           = get_image_label(self.img_label_folder,img_name)
-        im            = OffsetImage(img,zoom=.25) # change zoom value based on icon image's size
+        im            = OffsetImage(img,zoom=.2) # change zoom value based on icon image's size
         im.image.axes = ax 
 
         
@@ -251,7 +253,7 @@ class _BarChartRace(CommonChart):
         #load image as an OffsetImage object
         img_name      = get_image_name(name, self.img_name_dict)
         img           = get_image_label(self.img_label_folder,img_name)
-        im            = OffsetImage(img,zoom=.25) # change zoom value based on icon image's size
+        im            = OffsetImage(img,zoom=.2) # change zoom value based on icon image's size
         im.image.axes = ax 
 
         #renderer = self.fig.canvas.renderer
@@ -515,6 +517,8 @@ class _BarChartRace(CommonChart):
                     color=colors, **self.bar_kwargs)
             ax.set_yticklabels(ax.get_yticklabels(), **self.tick_label_font,wrap=True)#,visible=False)
             ax.set_yticklabels([])
+            ax.set_xlabel(x_label)
+            ax.set_ylabel(y_label)
             #ax.tick_params(top=False, bottom=False, left=False, right=False, labelleft=True, labelbottom=True)
             if not self.fixed_max and self.bar_textposition == 'outside':
                 max_bar = bar_length.max()
@@ -525,6 +529,9 @@ class _BarChartRace(CommonChart):
             ax.bar(bar_location, bar_length, tick_label=cols, 
                    color=colors, **self.bar_kwargs)
             ax.set_xticklabels(ax.get_xticklabels(), **self.tick_label_font)
+            ax.set_xticklabels([])
+            ax.set_xlabel(x_label)
+            ax.set_ylabel(y_label)
             if not self.fixed_max and self.bar_textposition == 'outside':
                 max_bar = bar_length.max()
                 new_max_pixels = ax.transData.transform((0, max_bar))[1] + self.extra_pixels
@@ -697,7 +704,8 @@ def bar_chart_race(df, filename=None, orientation='h', sort='desc', n_bars=None,
                    bar_label_font=None, tick_label_font=None, tick_template='{x:,.0f}',
                    shared_fontdict=None, scale='linear', fig=None, writer=None, bar_kwargs=None, 
                    fig_kwargs=None, filter_column_colors=False,
-                   img_label_folder=None,tick_label_mode='image',tick_image_mode='trailing',img_name_dict=None):
+                   img_label_folder=None,tick_label_mode='image',tick_image_mode='trailing',
+                   img_name_dict=None, x_label = '', y_label = ''):
     '''
     Create an animated bar chart race using matplotlib. Data must be in 
     'wide' format where each row represents a single time period and each 
@@ -1024,6 +1032,12 @@ def bar_chart_race(df, filename=None, orientation='h', sort='desc', n_bars=None,
     img_name_dict : dict, default None
         A dictionary which has key as column name of the dataset and value as the full name of the image including its extension
         
+    x_label : str, default ''
+        Label for x-axis
+        
+    y_label : str, default ''
+        Label for y-axis
+        
     Returns
     -------
     When `filename` is left as `None`, an HTML5 video is returned as a string.
@@ -1081,5 +1095,5 @@ def bar_chart_race(df, filename=None, orientation='h', sort='desc', n_bars=None,
                         colors, title, bar_size, bar_textposition, bar_texttemplate, 
                         bar_label_font, tick_label_font, tick_template, shared_fontdict, scale, 
                         fig, writer, bar_kwargs, fig_kwargs, filter_column_colors, 
-                        img_label_folder,tick_label_mode,tick_image_mode,img_name_dict)
+                        img_label_folder,tick_label_mode,tick_image_mode,img_name_dict,x_label,y_label)
     return bcr.make_animation()
