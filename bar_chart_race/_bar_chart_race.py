@@ -404,6 +404,7 @@ class _BarChartRace(CommonChart):
 
         ax.minorticks_off()
         ax.set_axisbelow(True)
+        ax.axes.xaxis.set_ticks([])
 
         ax.set_title(**self.title)
         # min_val = 1 if self.scale == 'log' else 0
