@@ -205,7 +205,7 @@ class _BarChartRace(CommonChart):
         #load image as an OffsetImage object
         img_name      = get_image_name(name, self.img_name_dict)
         img           = get_image_label(self.img_label_folder,img_name)
-        im            = OffsetImage(img,zoom=.2) # change zoom value based on icon image's size
+        im            = OffsetImage(img,zoom=.075) # change zoom value based on icon image's size
         im.image.axes = ax 
 
         
@@ -398,7 +398,7 @@ class _BarChartRace(CommonChart):
         ax.grid(True, axis='x', color='#D3DCE6', linewidth=5, zorder=0)
 
         # ax.tick_params(labelsize=self.tick_label_font['size'], length=0, pad=2)
-        #ax.tick_params(axis='x', length=12, labelsize=self.tick_label_font['size'], pad=1, color='#F8FAFF')
+        ax.tick_params(axis='x', length=12, labelsize=self.tick_label_font['size'], pad=1, color='#F8FAFF')
         ax.tick_params(axis='y', length=12, labelsize=self.tick_label_font['size'], pad=1, color='#ffffff00')
         ax.set_facecolor('#F8FAFF')
 
@@ -513,8 +513,8 @@ class _BarChartRace(CommonChart):
         if self.orientation == 'h':
             ax.barh(bar_location, bar_length, tick_label=cols, 
                     color=colors, **self.bar_kwargs)
-            ax.set_yticklabels(ax.get_yticklabels(), **self.tick_label_font,wrap=True)#,visible=False)
-            #ax.set_yticklabels([])
+            ax.set_yticklabels(ax.get_yticklabels(), **self.tick_label_font,wrap=True),visible=False)
+            ax.set_yticklabels([])
             #ax.tick_params(top=False, bottom=False, left=False, right=False, labelleft=True, labelbottom=True)
             if not self.fixed_max and self.bar_textposition == 'outside':
                 max_bar = bar_length.max()
