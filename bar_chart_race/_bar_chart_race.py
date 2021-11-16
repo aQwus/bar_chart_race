@@ -205,7 +205,7 @@ class _BarChartRace(CommonChart):
         #load image as an OffsetImage object
         img_name      = get_image_name(name, self.img_name_dict)
         img           = get_image_label(self.img_label_folder,img_name)
-        im            = OffsetImage(img,zoom=.4) # change zoom value based on icon image's size
+        im            = OffsetImage(img,zoom=.2) # change zoom value based on icon image's size
         im.image.axes = ax 
 
         
@@ -398,13 +398,12 @@ class _BarChartRace(CommonChart):
         ax.grid(True, axis='x', color='#D3DCE6', linewidth=5, zorder=0)
 
         # ax.tick_params(labelsize=self.tick_label_font['size'], length=0, pad=2)
-        ax.tick_params(axis='x', length=12, labelsize=self.tick_label_font['size'], pad=1, color='#F8FAFF')
+        #ax.tick_params(axis='x', length=12, labelsize=self.tick_label_font['size'], pad=1, color='#F8FAFF')
         ax.tick_params(axis='y', length=12, labelsize=self.tick_label_font['size'], pad=1, color='#ffffff00')
         ax.set_facecolor('#F8FAFF')
 
         ax.minorticks_off()
         ax.set_axisbelow(True)
-        ax.axes.xaxis.set_ticks([])
 
         ax.set_title(**self.title)
         # min_val = 1 if self.scale == 'log' else 0
