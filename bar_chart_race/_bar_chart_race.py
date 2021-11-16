@@ -517,8 +517,8 @@ class _BarChartRace(CommonChart):
                     color=colors, **self.bar_kwargs)
             ax.set_yticklabels(ax.get_yticklabels(), **self.tick_label_font,wrap=True)#,visible=False)
             ax.set_yticklabels([])
-            ax.set_xlabel(x_label)
-            ax.set_ylabel(y_label)
+            ax.set_xlabel(self.x_label)
+            ax.set_ylabel(self.y_label)
             #ax.tick_params(top=False, bottom=False, left=False, right=False, labelleft=True, labelbottom=True)
             if not self.fixed_max and self.bar_textposition == 'outside':
                 max_bar = bar_length.max()
@@ -530,8 +530,8 @@ class _BarChartRace(CommonChart):
                    color=colors, **self.bar_kwargs)
             ax.set_xticklabels(ax.get_xticklabels(), **self.tick_label_font)
             ax.set_xticklabels([])
-            ax.set_xlabel(x_label)
-            ax.set_ylabel(y_label)
+            ax.set_xlabel(self.x_label)
+            ax.set_ylabel(self.y_label)
             if not self.fixed_max and self.bar_textposition == 'outside':
                 max_bar = bar_length.max()
                 new_max_pixels = ax.transData.transform((0, max_bar))[1] + self.extra_pixels
