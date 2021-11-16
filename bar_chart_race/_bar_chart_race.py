@@ -513,7 +513,7 @@ class _BarChartRace(CommonChart):
         if self.orientation == 'h':
             ax.barh(bar_location, bar_length, tick_label=cols, 
                     color=colors, **self.bar_kwargs)
-            ax.set_yticklabels(ax.get_yticklabels(), **self.tick_label_font,wrap=True),visible=False)
+            ax.set_yticklabels(ax.get_yticklabels(), **self.tick_label_font,wrap=True)#,visible=False)
             ax.set_yticklabels([])
             #ax.tick_params(top=False, bottom=False, left=False, right=False, labelleft=True, labelbottom=True)
             if not self.fixed_max and self.bar_textposition == 'outside':
