@@ -25,7 +25,7 @@ def get_image_label(root_folder,name):
     img.thumbnail((200,200),Image.ANTIALIAS)
     return img
 
-def get_image_name(col_name):
+def get_image_name(col_name, img_name_dict):
     '''
     Needs to account for more cases. This is incomplete but it will do for now. It assumes there 
     is only one `.` in the filename. If it finds a dot, it will assume the name already has an extension.
@@ -37,13 +37,16 @@ def get_image_name(col_name):
     ----------
         str
     '''
+    
+    if img_name_dict != None:
+        return img_name_dict[col_name]
+    
     split_name = col_name.split('.')
     if len(split_name) > 1:
         img_name = split_name
     else:
         img_name = col_name + '.png'
     return img_name
-
 
 class _BarChartRace(CommonChart):
     
@@ -53,7 +56,7 @@ class _BarChartRace(CommonChart):
                  colors, title, bar_size, bar_textposition, bar_texttemplate, bar_label_font, 
                  tick_label_font, tick_template, shared_fontdict, scale, fig, writer, 
                  bar_kwargs, fig_kwargs, filter_column_colors, 
-                 img_label_folder,tick_label_mode,tick_image_mode):
+                 img_label_folder,tick_label_mode,tick_image_mode,img_name_dict):
         self.filename = filename
         self.extension = self.get_extension()
         self.orientation = orientation
@@ -97,6 +100,7 @@ class _BarChartRace(CommonChart):
         self.img_label_folder = img_label_folder    #root folder where image labels are stored
         self.tick_label_mode = tick_label_mode
         self.tick_image_mode = tick_image_mode
+        self.img_name_dict = img_name_dict # dictionary containing key as column name and value as corresponding image name with extensions (can be .jpg/.jpeg/.etc)
         self.img_label_artist = []     #stores image artists
 
 
@@ -199,7 +203,7 @@ class _BarChartRace(CommonChart):
 
         """
         #load image as an OffsetImage object
-        img_name      = get_image_name(name)
+        img_name      = get_image_name(name, self.img_name_dict)
         img           = get_image_label(self.img_label_folder,img_name)
         im            = OffsetImage(img,zoom=.8) # change zoom value based on icon image's size
         im.image.axes = ax 
@@ -245,7 +249,7 @@ class _BarChartRace(CommonChart):
 
         """
         #load image as an OffsetImage object
-        img_name      = get_image_name(name)
+        img_name      = get_image_name(name, self.img_name_dict)
         img           = get_image_label(self.img_label_folder,img_name)
         im            = OffsetImage(img,zoom=.25) # change zoom value based on icon image's size
         im.image.axes = ax 
